@@ -1,0 +1,49 @@
+<h1>Complaints</h1>
+<form method="get" class="filterbar">
+  <input name="q" value="{{q}}" placeholder="Search title or body" />
+  <select name="status">
+    <option value="">Any status</option>
+    <option value="NEW" {{#if (eq status "NEW")}}selected{{/if}}>NEW</option>
+    <option value="CONTACTED" {{#if (eq status "CONTACTED")}}selected{{/if}}>CONTACTED</option>
+    <option value="RESOLVED" {{#if (eq status "RESOLVED")}}selected{{/if}}>RESOLVED</option>
+    <option value="REMOVED" {{#if (eq status "REMOVED")}}selected{{/if}}>REMOVED</option>
+  </select>
+  <button class="btn">Apply</button>
+</form>
+
+<table class="table">
+  <thead>
+    <tr><th>Title</th><th>Company</th><th>Status</th><th>Created</th><th></th></tr>
+  </thead>
+  <tbody>
+    {{#each page.items}}
+      <tr>
+        <td>{{title}}</td>
+        <td>{{company.name}}</td>
+        <td>{{{statusBadge status}}}</td>
+        <td>{{formatDate createdAt}}</td>
+        <td class="actions">
+          <form method="post" action="/admin/complaints/{{id}}/status" class="inline">
+            <select name="status">
+              <option value="NEW">NEW</option>
+              <option value="CONTACTED">CONTACTED</option>
+              <option value="RESOLVED">RESOLVED</option>
+              <option value="REMOVED">REMOVED</option>
+            </select>
+            <button class="btn small">Set</button>
+          </form>
+          <form method="post" action="/admin/complaints/{{id}}/redact" class="inline"
+                onsubmit="return confirm('Redact this complaint?')">
+            <button class="btn small warn">Redact</button>
+          </form>
+          <form method="post" action="/admin/complaints/{{id}}/delete" class="inline"
+                onsubmit="return confirm('Soft-delete this complaint?')">
+            <button class="btn small danger">Delete</button>
+          </form>
+        </td>
+      </tr>
+    {{else}}
+      <tr><td colspan="5" class="muted">Nothing to moderate.</td></tr>
+    {{/each}}
+  </tbody>
+</table>

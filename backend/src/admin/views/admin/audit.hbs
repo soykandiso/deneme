@@ -1,0 +1,18 @@
+<h1>Audit log</h1>
+<table class="table">
+  <thead>
+    <tr><th>When</th><th>Actor</th><th>Action</th><th>Target</th></tr>
+  </thead>
+  <tbody>
+    {{#each page.items}}
+      <tr>
+        <td>{{formatDate createdAt}}</td>
+        <td>{{actorRole}} {{actorId}}</td>
+        <td><code>{{action}}</code></td>
+        <td>{{targetType}}/{{targetId}}</td>
+      </tr>
+    {{else}}
+      <tr><td colspan="4" class="muted">No audit entries yet.</td></tr>
+    {{/each}}
+  </tbody>
+</table>

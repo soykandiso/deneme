@@ -1,0 +1,21 @@
+<h1>Company suggestions</h1>
+<table class="table">
+  <thead>
+    <tr><th>Name</th><th>Website</th><th>Category</th><th>Note</th><th>Status</th><th>Created</th></tr>
+  </thead>
+  <tbody>
+    {{#each items}}
+      <tr>
+        <td>{{name}}</td>
+        <td>{{website}}</td>
+        <td>{{category}}</td>
+        <td class="muted">{{note}}</td>
+        <td>{{status}}</td>
+        <td>{{formatDate createdAt}}</td>
+      </tr>
+    {{else}}
+      <tr><td colspan="6" class="muted">No suggestions waiting.</td></tr>
+    {{/each}}
+  </tbody>
+</table>
+<p class="muted">Approve and reject are exposed via the JSON API at <code>/v1/admin/suggestions/:id/approve|reject</code>.</p>

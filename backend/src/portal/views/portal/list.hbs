@@ -1,0 +1,30 @@
+<h1>Your complaints</h1>
+<form method="get" class="filterbar">
+  <input name="q" value="{{q}}" placeholder="Search title or body" />
+  <select name="status">
+    <option value="">Any status</option>
+    <option value="NEW" {{#if (eq status "NEW")}}selected{{/if}}>NEW</option>
+    <option value="CONTACTED" {{#if (eq status "CONTACTED")}}selected{{/if}}>CONTACTED</option>
+    <option value="RESOLVED" {{#if (eq status "RESOLVED")}}selected{{/if}}>RESOLVED</option>
+  </select>
+  <button class="btn">Apply</button>
+</form>
+
+<table class="table">
+  <thead>
+    <tr><th>Title</th><th>Status</th><th>Created</th><th>Reply</th><th></th></tr>
+  </thead>
+  <tbody>
+    {{#each page.items}}
+      <tr>
+        <td>{{title}}</td>
+        <td>{{{statusBadge status}}}</td>
+        <td>{{formatDate createdAt}}</td>
+        <td>{{#if hasReply}}<span class="badge badge-resolved">yes</span>{{else}}<span class="badge badge-new">no</span>{{/if}}</td>
+        <td><a class="btn small" href="/portal/complaints/{{id}}">Open</a></td>
+      </tr>
+    {{else}}
+      <tr><td colspan="5" class="muted">No complaints found.</td></tr>
+    {{/each}}
+  </tbody>
+</table>

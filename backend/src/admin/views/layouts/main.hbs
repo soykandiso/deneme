@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="robots" content="noindex,nofollow" />
+  <title>Zalba — Console</title>
+  <link rel="stylesheet" href="/static/console.css" />
+</head>
+<body>
+  {{> nav user=user}}
+  <main class="container">
+    {{#if flash}}
+      <div class="flash flash-{{flash.type}}">{{flash.message}}</div>
+    {{/if}}
+    {{{body}}}
+  </main>
+  <footer class="footer">
+    Zalba operations console — every action is logged.
+  </footer>
+</body>
+</html>
