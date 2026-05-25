@@ -1,0 +1,28 @@
+<header class="topnav">
+  <div class="brand">Zalba <span class="brand-tag">{{#if user.companyId}}portal{{else}}console{{/if}}</span></div>
+  {{#if user}}
+    {{#if user.companyId}}
+      <nav>
+        <a href="/portal/complaints">Complaints</a>
+        <span class="spacer"></span>
+        <span class="who">{{user.displayName}}</span>
+        <form method="post" action="/portal/logout" style="display:inline">
+          <button class="link">Sign out</button>
+        </form>
+      </nav>
+    {{else}}
+      <nav>
+        <a href="/admin/dashboard">Dashboard</a>
+        <a href="/admin/complaints">Complaints</a>
+        <a href="/admin/reports">Reports</a>
+        <a href="/admin/suggestions">Suggestions</a>
+        <a href="/admin/audit">Audit</a>
+        <span class="spacer"></span>
+        <span class="who">{{user.displayName}}</span>
+        <form method="post" action="/admin/logout" style="display:inline">
+          <button class="link">Sign out</button>
+        </form>
+      </nav>
+    {{/if}}
+  {{/if}}
+</header>

@@ -1,0 +1,23 @@
+<h1>Reports</h1>
+<table class="table">
+  <thead>
+    <tr><th>Reason</th><th>Detail</th><th>Complaint</th><th>Created</th><th></th></tr>
+  </thead>
+  <tbody>
+    {{#each page.items}}
+      <tr>
+        <td>{{reason}}</td>
+        <td class="muted">{{detail}}</td>
+        <td><a href="/admin/complaints">{{complaint.title}}</a></td>
+        <td>{{formatDate createdAt}}</td>
+        <td>
+          <form method="post" action="/admin/reports/{{id}}/resolve" class="inline">
+            <button class="btn small">Mark handled</button>
+          </form>
+        </td>
+      </tr>
+    {{else}}
+      <tr><td colspan="5" class="muted">No open reports.</td></tr>
+    {{/each}}
+  </tbody>
+</table>

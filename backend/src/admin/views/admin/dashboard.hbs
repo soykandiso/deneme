@@ -1,0 +1,23 @@
+<h1>Dashboard</h1>
+<div class="grid">
+  <a class="tile" href="/admin/complaints?status=NEW">
+    <div class="tile-label">New complaints</div>
+    <div class="tile-value">{{dash.counts.newComplaints}}</div>
+  </a>
+  <a class="tile" href="/admin/reports">
+    <div class="tile-label">Open reports</div>
+    <div class="tile-value">{{dash.counts.pendingReports}}</div>
+  </a>
+  <a class="tile" href="/admin/suggestions">
+    <div class="tile-label">Pending suggestions</div>
+    <div class="tile-value">{{dash.counts.pendingSuggestions}}</div>
+  </a>
+  <div class="tile muted">
+    <div class="tile-label">Total complaints</div>
+    <div class="tile-value">{{dash.counts.totalComplaints}}</div>
+  </div>
+  <div class="tile muted">
+    <div class="tile-label">Companies</div>
+    <div class="tile-value">{{dash.counts.totalCompanies}}</div>
+  </div>
+</div>

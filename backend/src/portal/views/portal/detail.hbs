@@ -1,0 +1,51 @@
+<a href="/portal/complaints" class="back">&larr; Back to list</a>
+<h1>{{complaint.title}}</h1>
+<div class="meta">
+  {{{statusBadge complaint.status}}}
+  <span class="muted">{{formatDate complaint.createdAt}}</span>
+  <span class="muted">{{complaint.complaintCategory}}</span>
+</div>
+
+<section class="card">
+  <h3>Complaint body</h3>
+  <p class="prewrap">{{complaint.body}}</p>
+</section>
+
+{{#if complaint.attachments.length}}
+  <section class="card">
+    <h3>Evidence</h3>
+    <ul>
+      {{#each complaint.attachments}}
+        <li>{{originalFilename}} <span class="muted">({{contentType}})</span></li>
+      {{/each}}
+    </ul>
+  </section>
+{{/if}}
+
+<section class="card">
+  <h3>Timeline</h3>
+  <ol class="timeline">
+    {{#each complaint.updates}}
+      <li><strong>{{actor}}</strong> <code>{{note}}</code> <span class="muted">{{formatDate createdAt}}</span></li>
+    {{/each}}
+  </ol>
+</section>
+
+<section class="card">
+  <h3>Reply publicly</h3>
+  <form method="post" action="/portal/complaints/{{complaint.id}}/reply" class="form">
+    <textarea name="reply" rows="5" maxlength="4000" required>{{complaint.companyReply}}</textarea>
+    <button class="btn primary">Save reply</button>
+  </form>
+</section>
+
+<section class="card">
+  <h3>Change status</h3>
+  <form method="post" action="/portal/complaints/{{complaint.id}}/status" class="inline">
+    <select name="status">
+      <option value="CONTACTED">CONTACTED</option>
+      <option value="RESOLVED">RESOLVED</option>
+    </select>
+    <button class="btn">Update</button>
+  </form>
+</section>
