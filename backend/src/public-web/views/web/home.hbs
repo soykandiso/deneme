@@ -1,0 +1,42 @@
+<section class="hero">
+  <h1>Hold companies accountable.</h1>
+  <p>Submit, track, and explore public complaints. Three steps, no account required.</p>
+  <div class="hero-cta">
+    <a class="btn primary" href="/submit">Submit a complaint</a>
+    <a class="btn" href="/companies">Browse companies</a>
+  </div>
+</section>
+
+<section class="grid-cards">
+  <div class="card-block">
+    <h2>Recent complaints</h2>
+    <div class="cards">
+      {{#each complaints}}
+        <a class="card-link" href="/complaints/{{id}}">
+          <div class="card-row">
+            <span class="badge badge-{{toLower status}}">{{status}}</span>
+            <span class="muted">{{category}}</span>
+          </div>
+          <div class="card-title">{{title}}</div>
+          <div class="muted small">{{company.name}}</div>
+        </a>
+      {{else}}
+        <p class="muted">No complaints yet.</p>
+      {{/each}}
+    </div>
+    <a class="muted small" href="/complaints">View all →</a>
+  </div>
+
+  <div class="card-block">
+    <h2>Top companies</h2>
+    <div class="cards">
+      {{#each companies}}
+        <a class="card-link" href="/companies/{{slug}}">
+          <div class="card-title">{{name}}</div>
+          <div class="muted small">{{category}} · {{complaintCount}} complaints</div>
+        </a>
+      {{/each}}
+    </div>
+    <a class="muted small" href="/companies">View all →</a>
+  </div>
+</section>

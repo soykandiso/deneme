@@ -8,6 +8,7 @@
       { "include": "i18n/**/*", "outDir": "dist", "watchAssets": true },
       { "include": "admin/views/**/*", "outDir": "dist", "watchAssets": true },
       { "include": "portal/views/**/*", "outDir": "dist", "watchAssets": true },
+      { "include": "public-web/views/**/*", "outDir": "dist", "watchAssets": true },
       { "include": "public/**/*", "outDir": "dist", "watchAssets": true }
     ]
   }

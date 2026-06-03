@@ -18,6 +18,7 @@ import { PortalModule } from './portal/portal.module';
 import { AuditModule } from './audit/audit.module';
 import { HealthModule } from './health/health.module';
 import { CategoriesModule } from './categories/categories.module';
+import { PublicWebModule } from './public-web/public-web.module';
 
 @Module({
   imports: [
@@ -63,6 +64,7 @@ import { CategoriesModule } from './categories/categories.module';
     PortalModule,
     AuditModule,
     HealthModule,
+    PublicWebModule,
   ],
 })
 export class AppModule {}

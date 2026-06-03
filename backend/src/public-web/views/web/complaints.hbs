@@ -1,0 +1,40 @@
+<h1>Complaints</h1>
+
+<form method="get" class="filter-grid">
+  <input name="q" value="{{q}}" placeholder="Search title or body…" />
+  <select name="category">
+    <option value="">All categories</option>
+    {{#each categories}}
+      <option value="{{this}}" {{#if (eq this ../category)}}selected{{/if}}>{{this}}</option>
+    {{/each}}
+  </select>
+  <select name="status">
+    <option value="">All statuses</option>
+    {{#each statuses}}
+      <option value="{{this}}" {{#if (eq this ../status)}}selected{{/if}}>{{this}}</option>
+    {{/each}}
+  </select>
+  <select name="sort">
+    <option value="newest"   {{#if (eq "newest" sort)}}selected{{/if}}>Newest</option>
+    <option value="oldest"   {{#if (eq "oldest" sort)}}selected{{/if}}>Oldest</option>
+    <option value="updated"  {{#if (eq "updated" sort)}}selected{{/if}}>Recently updated</option>
+    <option value="reported" {{#if (eq "reported" sort)}}selected{{/if}}>Most reported</option>
+  </select>
+  <button class="btn">Apply</button>
+</form>
+
+<div class="cards">
+  {{#each complaints}}
+    <a class="card-link" href="/complaints/{{id}}">
+      <div class="card-row">
+        <span class="badge badge-{{toLower status}}">{{status}}</span>
+        <span class="muted">{{category}}</span>
+        <span class="muted small">{{formatDate createdAt}}</span>
+      </div>
+      <div class="card-title">{{title}}</div>
+      <div class="muted small">{{company.name}}{{#if hasReply}} · reply ✓{{/if}}</div>
+    </a>
+  {{else}}
+    <p class="muted">No complaints match these filters.</p>
+  {{/each}}
+</div>

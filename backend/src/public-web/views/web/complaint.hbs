@@ -1,0 +1,73 @@
+<a class="back" href="/complaints">← Back to complaints</a>
+
+<header class="complaint-header">
+  <div class="row">
+    <span class="badge badge-{{toLower complaint.status}}">{{complaint.status}}</span>
+    <span class="muted">{{complaint.category}}</span>
+    <span class="muted small">{{formatDate complaint.createdAt}}</span>
+  </div>
+  <h1>{{complaint.title}}</h1>
+  <p class="muted">
+    <a href="/companies/{{complaint.company.slug}}">{{complaint.company.name}}</a>
+  </p>
+</header>
+
+<section class="card-block">
+  <h2>What happened</h2>
+  <p class="prewrap">{{complaint.body}}</p>
+</section>
+
+{{#if complaint.attachments.length}}
+  <section class="card-block">
+    <h2>Evidence</h2>
+    <ul class="evidence">
+      {{#each complaint.attachments}}
+        <li><a href="/v1/attachments/{{id}}/download" target="_blank" rel="noopener">{{filename}}</a> <span class="muted small">({{contentType}})</span></li>
+      {{/each}}
+    </ul>
+  </section>
+{{/if}}
+
+<section class="card-block">
+  <h2>Company reply</h2>
+  {{#if complaint.companyReply}}
+    <p class="prewrap">{{complaint.companyReply}}</p>
+    <p class="muted small">Updated {{formatDate complaint.companyReplyUpdatedAt}}</p>
+  {{else}}
+    <p class="muted">No reply yet from the company.</p>
+  {{/if}}
+</section>
+
+<section class="card-block">
+  <h2>Timeline</h2>
+  <ol class="timeline">
+    {{#each complaint.timeline}}
+      <li>
+        <strong>{{actor}}</strong>
+        <code>{{note}}</code>
+        <span class="muted small">{{formatDate createdAt}}</span>
+      </li>
+    {{/each}}
+  </ol>
+</section>
+
+<details class="card-block">
+  <summary><strong>Report this complaint</strong></summary>
+  <form method="post" action="/complaints/{{complaint.id}}/report" class="form">
+    <label>Reason
+      <select name="reason" required>
+        <option value="spam">Spam</option>
+        <option value="abuse">Abuse</option>
+        <option value="hate">Hate speech</option>
+        <option value="duplicate">Duplicate</option>
+        <option value="private_info">Private info</option>
+        <option value="misleading">Misleading</option>
+        <option value="other">Other</option>
+      </select>
+    </label>
+    <label>Details (optional)
+      <textarea name="detail" maxlength="500" rows="3"></textarea>
+    </label>
+    <button class="btn warn">Send report</button>
+  </form>
+</details>

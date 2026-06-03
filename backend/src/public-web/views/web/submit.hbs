@@ -1,0 +1,42 @@
+<h1>Submit a complaint</h1>
+<p class="muted">Your complaint will be visible publicly. Contact info stays private and is only shared with the company.</p>
+
+<form method="post" action="/submit" class="form">
+  <label>Company
+    <select name="companyId" required>
+      <option value="">— pick a company —</option>
+      {{#each companies}}
+        <option value="{{id}}" {{#if (eq id ../companyId)}}selected{{/if}}>{{name}}</option>
+      {{/each}}
+    </select>
+  </label>
+
+  <label>Title (short summary)
+    <input name="title" minlength="8" maxlength="160" required placeholder="One sentence summary" />
+  </label>
+
+  <label>Category
+    <select name="category" required>
+      <option value="">— pick a category —</option>
+      {{#each categories}}
+        <option value="{{this}}">{{this}}</option>
+      {{/each}}
+    </select>
+  </label>
+
+  <label>What happened?
+    <textarea name="bodyText" minlength="30" maxlength="8000" rows="8" required
+      placeholder="Describe the issue: when, where, who you spoke to, and what you've already tried."></textarea>
+  </label>
+
+  <label>Contact email (optional, kept private)
+    <input type="email" name="contactEmail" maxlength="254" />
+  </label>
+
+  <label>Contact phone (optional, kept private)
+    <input type="tel" name="contactPhone" maxlength="40" />
+  </label>
+
+  <button class="btn primary" type="submit">Publish complaint</button>
+  <p class="muted small">By publishing, you agree your complaint becomes public.</p>
+</form>

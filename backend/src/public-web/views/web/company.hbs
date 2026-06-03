@@ -1,0 +1,26 @@
+<a class="back" href="/companies">← Back to companies</a>
+<header class="company-header">
+  <h1>{{company.name}}</h1>
+  <p class="muted">{{company.category}}</p>
+  {{#if company.description}}<p>{{company.description}}</p>{{/if}}
+  <div class="row">
+    {{#if company.website}}<a class="btn small" href="{{company.website}}" target="_blank" rel="noopener">Website</a>{{/if}}
+    <a class="btn primary small" href="/submit?companyId={{company.id}}">Submit a complaint</a>
+  </div>
+</header>
+
+<h2>Public complaints ({{company.complaintCount}})</h2>
+<div class="cards">
+  {{#each complaints}}
+    <a class="card-link" href="/complaints/{{id}}">
+      <div class="card-row">
+        <span class="badge badge-{{toLower status}}">{{status}}</span>
+        <span class="muted">{{category}}</span>
+      </div>
+      <div class="card-title">{{title}}</div>
+      <div class="muted small">{{formatDate createdAt}}</div>
+    </a>
+  {{else}}
+    <p class="muted">No public complaints yet.</p>
+  {{/each}}
+</div>
