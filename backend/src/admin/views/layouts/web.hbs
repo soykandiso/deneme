@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>Zalba — Public complaint platform</title>
+  <link rel="stylesheet" href="/static/console.css" />
+  <link rel="stylesheet" href="/static/web.css" />
+  <meta name="theme-color" content="#1d4ed8" />
+</head>
+<body class="web">
+  <header class="web-nav">
+    <a class="web-brand" href="/">Zalba</a>
+    <nav>
+      <a href="/companies">Companies</a>
+      <a href="/complaints">Complaints</a>
+      <a href="/submit" class="cta">Submit</a>
+    </nav>
+  </header>
+
+  <main class="web-main">
+    {{#if flash}}
+      <div class="flash flash-{{flash.type}}">{{flash.message}}</div>
+    {{/if}}
+    {{{body}}}
+  </main>
+
+  <footer class="web-footer">
+    <p>Zalba — independent public complaint platform.</p>
+    <p>
+      <a href="/admin/login">Admin</a> ·
+      <a href="/portal/login">Company portal</a> ·
+      <a href="/suggest">Suggest a company</a>
+    </p>
+  </footer>
+</body>
+</html>

@@ -32,4 +32,5 @@ COPY prisma ./prisma
 
 EXPOSE 3000
 USER node
-CMD ["node", "dist/main.js"]
+# Fallback handles tsc emitting to dist/src/main.js on some Node versions.
+CMD sh -c "[ -f dist/main.js ] && node dist/main.js || node dist/src/main.js"

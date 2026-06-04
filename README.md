@@ -1,65 +1,105 @@
-# Zalba Mobile — Public Complaint Platform
+# Zalba — Public Complaint Platform
 
-A production-grade, cross-platform mobile complaint and accountability platform.
+A production-grade complaint and accountability platform.
 
-This repository contains a complete system:
+- **`backend/`** — REST API + server-rendered web portals (NestJS + Prisma + PostgreSQL).
+- **`mobile/`** — Flutter app (iOS + Android).
+- **`docs/`** — Architecture, API contract, schema, deployment.
 
-- **`mobile/`** — Flutter app (iOS + Android) for the public-facing experience.
-- **`backend/`** — NestJS + Prisma + PostgreSQL API plus a server-rendered web
-  portal for company representatives and admins.
-- **`docs/`** — Architecture, API contract, database schema, mobile screen plan,
-  deployment guide and product roadmap.
+---
 
-## At a glance
-
-| Surface | Audience | Tech |
-|---|---|---|
-| Mobile app | Public users (browse, search, submit complaints) | Flutter / Dart |
-| Company portal | Company representatives (reply, update status) | Web (server-rendered, NestJS + Handlebars) |
-| Admin console | Platform moderators | Web (server-rendered, NestJS + Handlebars) |
-| Public API | Mobile app + web portals | NestJS REST API |
-
-## Quick start
+## Run it in 30 seconds (Codespaces or local Docker)
 
 ```bash
-# 1. Spin up Postgres, Redis, MinIO, and the API.
-docker compose up -d
-
-# 2. Bootstrap the database.
-cd backend
-cp .env.example .env
-npm install
-npm run prisma:migrate
-npm run prisma:seed
-
-# 3. Run the API in dev mode.
-npm run start:dev
-
-# 4. Open the company portal.
-open http://localhost:3000/portal/login
-# Demo company login: rep@demo.com / DemoRep123!
-
-# 5. Open the admin console.
-open http://localhost:3000/admin/login
-# Demo admin login: admin@demo.com / DemoAdmin123!
-
-# 6. Run the mobile app against the local API.
-cd ../mobile
-flutter pub get
-flutter run --dart-define=API_BASE_URL=http://10.0.2.2:3000
+./start.sh
 ```
 
-See [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md) for production deployment, and
-[`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) for the full system design.
+That's it. The script will:
 
-## Languages
+1. Build and start postgres + redis + minio + the API in Docker.
+2. Apply migrations and seed demo data automatically.
+3. Wait until the API is healthy.
+4. Print every URL you can open in your browser.
 
-The platform ships with three first-class locales: **Macedonian**, **Albanian**,
-**English**. Locale resources live alongside code in both the backend
-(`backend/src/i18n/`) and the mobile app (`mobile/lib/l10n/`).
+When it's done, open `http://localhost:3000` — you'll get the public web UI.
 
-## Status
+> ⚠️ Don't run `npm run start:dev`. The API is already running in Docker.
+> Running it on top causes a port-3000 conflict.
 
-This is an initial reference implementation suitable as the foundation for a
-production deployment. The shape, security posture and migrations are
-production-grade; remaining work is enumerated in [`docs/ROADMAP.md`](docs/ROADMAP.md).
+---
+
+## Open it on your phone (from Codespaces)
+
+1. Run `./start.sh` and wait for it to print the URLs.
+2. In VS Code, look at the bottom panel and click the **PORTS** tab.
+3. Find the row with port `3000`. **Right-click it → Port Visibility → Public**.
+4. The **Forwarded Address** column now shows a URL like `https://<your-codespace>-3000.app.github.dev`.
+   Click the 📋 icon to copy it.
+5. Open that URL in your phone's browser. You'll land on the public home page.
+
+---
+
+## What you can click through
+
+| URL | Who it's for |
+|---|---|
+| `/` | Public home — hero, recent complaints, top companies |
+| `/companies` | Browse all companies (with search) |
+| `/companies/:slug` | One company's profile + its complaints |
+| `/complaints` | Browse all complaints (search + filter + sort) |
+| `/complaints/:id` | One complaint with timeline, evidence, company reply, report button |
+| `/submit` | Submit a new complaint (public web form) |
+| `/suggest` | Suggest a new company |
+| `/admin/login` | Admin console — moderation, reports, audit log |
+| `/portal/login` | Company portal — reps reply to their own complaints |
+
+### Demo logins
+
+| Surface | Email | Password |
+|---|---|---|
+| Admin | `admin@demo.com` | `DemoAdmin123!` |
+| Company portal | `rep@demo.com` | `DemoRep123!` |
+
+---
+
+## Stop / restart
+
+```bash
+docker compose down            # stop everything
+docker compose logs -f api     # watch live API logs
+./start.sh                     # start again
+```
+
+The Postgres data persists in a Docker volume, so your test complaints stick
+around between restarts.
+
+---
+
+## Mobile (Flutter) app
+
+The mobile app talks to the same REST API. If you want to actually run the
+Flutter app on your phone:
+
+1. Make sure the API is running (`./start.sh`).
+2. Get the public Codespaces URL (or your laptop's LAN IP if local).
+3. On your **laptop** (Codespaces can't push builds to phones):
+   ```bash
+   cd mobile
+   flutter pub get
+   flutter run --dart-define=API_BASE_URL=https://<your-codespace>-3000.app.github.dev
+   ```
+
+For "just review the product on my phone," skip the Flutter step — the
+**public web UI** at `/`, `/companies`, `/complaints`, `/submit` covers the
+same flows in mobile Safari/Chrome.
+
+---
+
+## Docs
+
+- [Architecture](docs/ARCHITECTURE.md)
+- [API contract](docs/API.md)
+- [Database schema](docs/DATABASE.md)
+- [Mobile plan](docs/MOBILE.md)
+- [Deployment](docs/DEPLOYMENT.md)
+- [Roadmap](docs/ROADMAP.md)

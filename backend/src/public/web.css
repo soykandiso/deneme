@@ -1,0 +1,96 @@
+/* Public-facing web UI — designed mobile-first. */
+body.web {
+  background: #f7f8fb;
+  color: #1b2230;
+  max-width: 720px;
+  margin: 0 auto;
+}
+.web-nav {
+  position: sticky; top: 0; z-index: 10;
+  display: flex; gap: 12px; align-items: center;
+  background: #fff; border-bottom: 1px solid #e3e7ec;
+  padding: 12px 16px;
+}
+.web-brand { font-weight: 800; color: #1d4ed8; text-decoration: none; font-size: 18px; }
+.web-nav nav { display: flex; gap: 14px; margin-left: auto; align-items: center; }
+.web-nav nav a { color: #1b2230; text-decoration: none; font-weight: 500; font-size: 14px; }
+.web-nav nav a.cta {
+  background: #1d4ed8; color: #fff;
+  padding: 8px 14px; border-radius: 999px;
+}
+.web-main { padding: 16px; padding-bottom: 80px; }
+.web-footer {
+  text-align: center; padding: 24px 16px; color: #5a6577; font-size: 13px;
+  border-top: 1px solid #e3e7ec; margin-top: 32px; background: #fff;
+}
+.web-footer a { color: #5a6577; margin: 0 4px; }
+
+.hero {
+  background: linear-gradient(135deg, #1d4ed8 0%, #1e3a8a 100%);
+  color: #fff;
+  padding: 28px 20px;
+  border-radius: 16px;
+  margin-bottom: 24px;
+}
+.hero h1 { margin: 0 0 8px; font-size: 24px; line-height: 1.2; }
+.hero p { margin: 0 0 16px; color: rgba(255,255,255,.85); }
+.hero-cta { display: flex; flex-wrap: wrap; gap: 8px; }
+.hero-cta .btn { background: rgba(255,255,255,.15); color: #fff; border-color: rgba(255,255,255,.3); }
+.hero-cta .btn.primary { background: #fff; color: #1d4ed8; border-color: #fff; }
+
+.grid-cards { display: grid; gap: 24px; }
+.card-block { background: #fff; border: 1px solid #e3e7ec; border-radius: 12px; padding: 16px; }
+.card-block h2 { margin: 0 0 12px; font-size: 16px; }
+.card-block summary { cursor: pointer; }
+
+.cards { display: grid; gap: 8px; margin-bottom: 8px; }
+.card-link {
+  display: block; background: #fff; border: 1px solid #e3e7ec;
+  border-radius: 10px; padding: 12px 14px; text-decoration: none; color: inherit;
+  transition: transform .05s, border-color .1s;
+}
+.card-link:active { transform: scale(.99); }
+.card-link:hover { border-color: #1d4ed8; }
+.card-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 4px; }
+.card-title { font-weight: 600; font-size: 15px; margin: 2px 0; }
+
+.searchbar, .filter-grid {
+  display: grid; gap: 8px; margin-bottom: 16px;
+}
+.filter-grid { grid-template-columns: 1fr 1fr; }
+.filter-grid input, .filter-grid select,
+.searchbar input, .form input, .form select, .form textarea {
+  padding: 12px; border: 1px solid #e3e7ec; border-radius: 8px;
+  background: #fff; font-size: 16px;       /* 16px → iOS doesn't zoom on focus */
+  font-family: inherit;
+}
+.filter-grid input { grid-column: 1 / -1; }
+.searchbar { grid-template-columns: 1fr auto; }
+.filter-grid .btn { grid-column: 1 / -1; }
+
+.form { display: flex; flex-direction: column; gap: 12px; }
+.form label { display: flex; flex-direction: column; gap: 4px; font-size: 13px; color: #5a6577; font-weight: 500; }
+.form textarea { resize: vertical; min-height: 100px; }
+
+.company-header, .complaint-header { margin-bottom: 20px; }
+.company-header h1, .complaint-header h1 { margin: 8px 0 4px; line-height: 1.2; }
+.row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+
+.evidence { padding-left: 18px; }
+.evidence li { margin: 4px 0; }
+.timeline { list-style: none; padding-left: 0; margin: 0; }
+.timeline li { padding: 8px 0; border-bottom: 1px solid #e3e7ec; display: flex; flex-wrap: wrap; gap: 8px; align-items: baseline; }
+.timeline li:last-child { border-bottom: 0; }
+.timeline code { background: #f1f3f7; padding: 1px 6px; border-radius: 4px; font-size: 12px; }
+
+.error { text-align: center; padding: 40px 16px; }
+.error h1 { font-size: 48px; margin: 0; color: #1d4ed8; }
+
+.small { font-size: 12px; }
+.prewrap { white-space: pre-wrap; line-height: 1.5; margin: 0; }
+.back { display: inline-block; margin-bottom: 12px; color: #5a6577; text-decoration: none; font-size: 14px; }
+.back:hover { color: #1b2230; }
+
+@media (min-width: 600px) {
+  .grid-cards { grid-template-columns: 1fr 1fr; }
+}

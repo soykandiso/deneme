@@ -61,7 +61,13 @@ services:
       PUBLIC_BASE_URL: http://localhost:3000
       PORT: "3000"
     ports: ["3000:3000"]
-    command: sh -c "npx prisma migrate deploy && node dist/main.js"
+    # On every boot: apply migrations, run the idempotent seed, then start.
+    # `dist/main.js` is the expected output path; `dist/src/main.js` is a
+    # fallback for tsc-versions that emit relative to the implicit rootDir.
+    command: >
+      sh -c "npx prisma migrate deploy
+      && node prisma/seed.js
+      && { [ -f dist/main.js ] && node dist/main.js || node dist/src/main.js; }"
 
 volumes:
   pg-data:

@@ -49,6 +49,7 @@ async function bootstrap() {
       partialsDir: join(__dirname, 'admin', 'views', 'partials'),
       helpers: {
         eq: (a: unknown, b: unknown) => a === b,
+        toLower: (v: unknown) => String(v ?? '').toLowerCase(),
         formatDate: (d: Date | string | null) =>
           d ? new Date(d).toISOString().replace('T', ' ').slice(0, 19) : '',
         statusBadge: (s: string) => `<span class="badge badge-${s.toLowerCase()}">${s}</span>`,
@@ -59,6 +60,7 @@ async function bootstrap() {
   app.set('views', [
     join(__dirname, 'admin', 'views'),
     join(__dirname, 'portal', 'views'),
+    join(__dirname, 'public-web', 'views'),
   ]);
   app.useStaticAssets(join(__dirname, 'public'), { prefix: '/static' });
 

@@ -1,0 +1,18 @@
+<h1>Companies</h1>
+
+<form method="get" class="searchbar">
+  <input name="q" value="{{q}}" placeholder="Search companies by name…" />
+  <button class="btn">Search</button>
+</form>
+
+<div class="cards">
+  {{#each companies}}
+    <a class="card-link" href="/companies/{{slug}}">
+      <div class="card-title">{{name}}</div>
+      <div class="muted small">{{category}} · {{complaintCount}} complaints</div>
+      {{#if description}}<div class="muted small">{{description}}</div>{{/if}}
+    </a>
+  {{else}}
+    <p class="muted">No companies match.</p>
+  {{/each}}
+</div>
